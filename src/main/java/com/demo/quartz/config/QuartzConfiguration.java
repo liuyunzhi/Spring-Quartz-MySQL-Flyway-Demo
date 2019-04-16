@@ -42,7 +42,8 @@ public class QuartzConfiguration {
     @Bean
     public CronTriggerFactoryBean synchronizeTrigger(JobDetail synchronizeJob) {
         CronTriggerFactoryBean trigger = new CronTriggerFactoryBean();
-        trigger.setCronExpression("* 0/5 * * * ? *");
+        trigger.setCronExpression("0 0/5 * * * ? *");
+        trigger.setMisfireInstructionName("MISFIRE_INSTRUCTION_DO_NOTHING");
         trigger.setJobDetail(synchronizeJob);
         return trigger;
     }
