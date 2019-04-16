@@ -9,6 +9,7 @@ spring:
     show-sql: true
   quartz:
     job-store-type: jdbc
+    overwrite-existing-jobs: true
     jdbc:
       initialize-schema: never
     properties:
@@ -26,3 +27,7 @@ spring:
       org.quartz.dataSource.quartz.user: root
       org.quartz.dataSource.quartz.password: Passw0rd@
       org.quartz.dataSource.quartz.provider: hikaricp
+
+logging:
+  level:
+    com.demo.quartz: debug

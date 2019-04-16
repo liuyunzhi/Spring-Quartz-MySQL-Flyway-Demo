@@ -5,10 +5,10 @@ import org.quartz.JobExecutionContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 @Slf4j
-public class SampleJob extends QuartzJobBean {
+public class SynchronizeJob extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext context) {
-        log.debug("You are success!");
+        log.debug("This is a synchronize job.");
     }
 }

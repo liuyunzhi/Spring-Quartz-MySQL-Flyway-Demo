@@ -1,6 +1,7 @@
 package com.demo.quartz.config;
 
 import com.demo.quartz.job.SampleJob;
+import com.demo.quartz.job.SynchronizeJob;
 import org.quartz.JobDetail;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,7 @@ import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 public class QuartzConfiguration {
 
     @Bean
-    public JobDetailFactoryBean job() {
+    public JobDetailFactoryBean sampleJob() {
         JobDetailFactoryBean jobDetailFactory = new JobDetailFactoryBean();
 
         jobDetailFactory.setJobClass(SampleJob.class);
@@ -21,10 +22,28 @@ public class QuartzConfiguration {
     }
 
     @Bean
-    public CronTriggerFactoryBean trigger(JobDetail job) {
+    public CronTriggerFactoryBean sampleTrigger(JobDetail sampleJob) {
         CronTriggerFactoryBean trigger = new CronTriggerFactoryBean();
-        trigger.setCronExpression("0/5 1-2 * * * ? ");
-        trigger.setJobDetail(job);
+        trigger.setCronExpression("* * * * * ? *");
+        trigger.setJobDetail(sampleJob);
+        return trigger;
+    }
+
+    @Bean
+    public JobDetailFactoryBean synchronizeJob() {
+        JobDetailFactoryBean jobDetailFactory = new JobDetailFactoryBean();
+
+        jobDetailFactory.setJobClass(SynchronizeJob.class);
+        jobDetailFactory.setDurability(true);
+
+        return jobDetailFactory;
+    }
+
+    @Bean
+    public CronTriggerFactoryBean synchronizeTrigger(JobDetail synchronizeJob) {
+        CronTriggerFactoryBean trigger = new CronTriggerFactoryBean();
+        trigger.setCronExpression("* 0/5 * * * ? *");
+        trigger.setJobDetail(synchronizeJob);
         return trigger;
     }
 }
